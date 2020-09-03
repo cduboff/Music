@@ -1,0 +1,19 @@
+div#wrapper{
+    margin: 0px auto;
+    padding: 25px;
+    width: 750px;
+}
+div#header{
+    border-bottom: 1px solid black;
+    height: 150px;
+}
+div#header img{
+    width: 50px;
+}
+form#reg{
+    display: inline-block;
+    width: 250px;
+}
+form#reg input{
+    margin: 5px;
+}

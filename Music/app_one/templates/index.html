@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <a href="/home"><img src="music.gif" alt=""></a>
+        </div>
+        <div id="body">
+            <form action="/reg" method="POST" id="reg">
+            {% csrf_token %}
+            <h3>Registration Form</h3>
+            <input type="text" name="first_name" placeholder="First Name">
+            <input type="text" name="last_name" placeholder="Last Name">
+            <input type="text" name="username" placeholder="Username">
+            <input type="text" name="email_address" placeholder="Email Address">
+            <input type="text" name="password" placeholder="Password">
+            <input type="text" name="confirm_pw" placeholder="Confirm Password">
+            <input type="date" name="birthday" placeholder="Birthday">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=8, initial-scale=1.0">
+    <title>Music</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="body">
+            <form action="/search" method="POST">
+            {% csrf_token %}
+                <h3>Search for a song/artist/album</h3>
+                <input type="text" name="song" placeholder="query">
+                <input type="submit" value="Search">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
