@@ -1,19 +1,30 @@
-div#wrapper{
+img{
+    width: 100px;
+}
+/* div#body{
     margin: 0px auto;
-    padding: 25px;
-    width: 750px;
 }
-div#header{
-    border-bottom: 1px solid black;
-    height: 150px;
-}
-div#header img{
-    width: 50px;
-}
-form#reg{
+    form#reg{
+        display: inline-block;
+        vertical-align: top;
+        margin: 0px 25px;
+    }
+        form#reg input{
+            margin: 5px;
+            display: block;
+        }
+    form#log{
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 25px;
+    }
+        form#log input{
+            margin: 5px;
+            display: block;
+        }
+form#post{
     display: inline-block;
-    width: 250px;
 }
-form#reg input{
-    margin: 5px;
-}
+form#song{
+    display: inline-block;
+} */
