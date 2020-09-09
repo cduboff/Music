@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="nav" id="nav">
+            <div class="nav-item ">
+                <a href="/home/{{request.session.user_id}}"><img src="static\music.gif" alt="Link to Home page" class="align-self-center"></a>
+            </div>
+            <div class="nav-item">
+                <a href="/edit_prof/{{request.session.user_id}}">Edit Profile</a> | <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    This is the edit profile page!
+</body>
+</html>
