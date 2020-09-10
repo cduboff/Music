@@ -25,6 +25,7 @@ class UserManager(models.Manager):
         users = self.filter(username=username)
         if not users:
             return False
+
         user = users[0]
         return bcrypt.checkpw(password.encode(), user.password.encode())
 
