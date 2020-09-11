@@ -10,6 +10,11 @@
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+    *{
+        outline: 1px dotted red;
+    }
+    </style>
 </head>
 <body>
     <div class="wrapper container">
@@ -53,6 +58,7 @@
                     <div class="form-group col auto">
                         <form action="/sign" method="POST" id="post">
                             {% csrf_token %}
+                            <p>Search for songs to share in your post!</p>
                             <textarea name="q" placeholder="Search Spotify..." cols="30" rows="5"></textarea>
                             <input type="submit" value="Search">
                         </form>
@@ -89,10 +95,5 @@
         </div>
     </div>
 </body>
-<!-- <script>
-    console.log(document.getElementById('spotify_object').innerHTML)
-    for(p in {{request.session.result}}){
-        console.log()
-    }
-</script> -->
+
 </html>

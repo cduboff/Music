@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'multiforloop',
     'app_one',
     'django.contrib.admin',
     'django.contrib.auth',

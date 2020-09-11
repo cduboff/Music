@@ -7,10 +7,6 @@ import spotipy.util as util
 from spotipy.oauth2 import SpotifyOAuth
 from spotipy.oauth2 import SpotifyClientCredentials
 
-
-cid ="5d76ac0e1b4c4d75b7627674b8129495" 
-secret = "f627bccaf8f14bc58195d7bf578f3590"
-
 # # Create your views here
 def index(request):
     return render(request, 'index.html')
