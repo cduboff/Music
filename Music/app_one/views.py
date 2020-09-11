@@ -8,7 +8,7 @@ from spotipy.oauth2 import SpotifyOAuth
 from spotipy.oauth2 import SpotifyClientCredentials
 
 
-cid ="77e602fc63fa4b96acff255ed33428d3" 
+cid ="5d76ac0e1b4c4d75b7627674b8129495" 
 secret = "f627bccaf8f14bc58195d7bf578f3590"
 
 # # Create your views here
@@ -57,9 +57,7 @@ def home(request):
     context = {
         'user': User.objects.all(),
         'posts': Posts.objects.all(),
-        'spotify': sp.user_playlists('spotify'),
     }
-
     return render(request, 'music.html', context)
 
 def logout(request):
@@ -67,14 +65,58 @@ def logout(request):
     return redirect('/')
 
 def edit_profile(request, id):
-    if not User in request.session:
-        return redirect('/')
     context = {
         'user': User.objects.get(id=id)
     }
     return render(request, 'edit.html', context)
 
+def post(request):
+    if request.method == 'POST':
+        errors = Posts.objects.validator(request.POST)
+        print(errors)
+        if len(errors) > 0:
+            for key, values in errors.items():
+                messages.error(request, values)
+            return redirect('/home')
+        test_post = Posts.objects.create(content=request.POST['content'], poster=User.objects.get(id=request.session['user_id']))
+        print(test_post)
+    return redirect('/home')
+
+def delete(request, id):
+    Posts.objects.get(id=id).delete()
+    return redirect('/home')
+
+def edit_user(request, id):
+    user = User.objects.get(id=id)
+    if request.method == 'POST':
+        errors = User.objects.edit(request.POST)
+        print(errors)
+        if len(errors) > 0:
+            for key, values in errors.items():
+                messages.error(request, values)
+            return redirect(f'/edit_prof/{user.id}')
+        user.username = request.POST['username']
+        user.email_address = request.POST['email_address']
+        user.save()
+        print(user.username, user.email_address)
+    return redirect('/home')
+
 def spotify(request):
-    q = request.POST['query']
-    q.replace(" ", "%20")
-    return redirect('https://api.spotify.com/v1/search')
+    auth_manager = SpotifyClientCredentials()
+    sp = spotipy.Spotify(auth_manager=auth_manager)
+    q = request.POST['q']
+    result = sp.search(q)
+    print(result)
+    request.session['result'] = []
+    # request.session['album'] = []
+    for i in range(len(result['tracks']['items'])):
+        result_obj = {}
+        result_obj['name'] = result['tracks']['items'][i]['album']['name']
+        result_obj['link'] = result['tracks']['items'][i]['external_urls']['spotify']
+        request.session['result'].append(result_obj)
+        print(result['tracks']['items'][i]['external_urls']['spotify'])
+    # for i in range(len(result['tracks']['items'])):
+    #     print(result['tracks']['items'][i]['external_urls']['spotify'])
+    #     request.session['result'].append(result['tracks']['items'][i]['external_urls']['spotify'])
+    #     request.session['album'].append(result['tracks']['items'][i]['album']['name'])
+    return redirect('/home')

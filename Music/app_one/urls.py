@@ -9,4 +9,7 @@ urlpatterns = [
     path('logout', views.logout),
     path('edit_prof/<int:id>', views.edit_profile),
     path('sign', views.spotify),
+    path('search', views.post),
+    path('delete_post/<int:id>', views.delete),
+    path('edit/<int:id>', views.edit_user),
 ]

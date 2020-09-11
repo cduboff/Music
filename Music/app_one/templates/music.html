@@ -17,7 +17,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container">
                     <div class="col">
-                        <a class="navbar-brand" href="/home/{{request.session.user_id}}"><img src="static\music.gif" alt="Link to Home page"></a>
+                        <a class="navbar-brand" href="/home"><img src="static\music.gif" alt="Link to Home page"></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@
                         <ul class="navbar-nav">
                             <li class="nav-item active">
                                 <div class="col-5"></div>
-                                    <h2>Welcome {{user.username}}!</h2>
+                                    <h2>Welcome {{request.session.name}}!</h2>
                                 </div>
                             </li>
                             <li class="nav-item">
@@ -40,28 +40,59 @@
                 </div>
             </nav>
         </div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags}}"{% endif %}>{{message}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         <div class="row">
             <div class="col">
                 <div class="form-row">
                     <div class="form-group col auto">
-                        <form action="/post" method="POST" id="post">
+                        <form action="/sign" method="POST" id="post">
                             {% csrf_token %}
-                            <textarea name="content" placeholder="Post something..." cols="30" rows="5"></textarea>
+                            <textarea name="q" placeholder="Search Spotify..." cols="30" rows="5"></textarea>
+                            <input type="submit" value="Search">
                         </form>
+                        <div class="row">
+                            <ul>
+                                {% for name in request.session.result %}
+                                <li><a href="{{name.link}}">{{name.name}}</a></li>
+                                {% endfor %}
+                            </ul>
+                            <!-- <p>{{spotify}}</p> -->
+                        </div>
                     </div>
+                    
                     <div class="form-group col auto">
                         <form action="/search" method="POST" id="song">
                             {% csrf_token %}
-                            <textarea name="song" placeholder="Search for a song to share..." cols="30" rows="5"></textarea>
-                            <input type="submit" value="Search">
+                            <textarea
+                             placeholder="Create a post..." cols="30" rows="5" name="content"></textarea>
+                            <input type="submit" value="Post">
                         </form>
+                        <div class="row">
+                            {% for post in posts %}
+                            <ul>
+                                <li>{{post.poster.first_name}} {{post.poster.last_name}} <br> {{post.content}}</li>
+                                {% if post.poster.id == request.session.user_id %}
+                                    <a href="/delete_post/{{post.id}}">Delete</a>
+                                {% endif %}
+                            </ul>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <p>{{spotify}}</p>
-        </div>
     </div>
 </body>
+<!-- <script>
+    console.log(document.getElementById('spotify_object').innerHTML)
+    for(p in {{request.session.result}}){
+        console.log()
+    }
+</script> -->
 </html>

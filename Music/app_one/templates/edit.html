@@ -11,13 +11,26 @@
     <div class="container">
         <div class="nav" id="nav">
             <div class="nav-item ">
-                <a href="/home/{{request.session.user_id}}"><img src="static\music.gif" alt="Link to Home page" class="align-self-center"></a>
+                <a href="/home"><img src="../static/music.gif" alt="Link to Home page" class="align-self-center"></a>
             </div>
             <div class="nav-item">
                 <a href="/edit_prof/{{request.session.user_id}}">Edit Profile</a> | <a href="/logout">Logout</a>
             </div>
         </div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags}}"{% endif %}>{{message}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form action="/edit/{{request.session.user_id}}" method="POST">
+            {% csrf_token %}
+            <h3>Edit Profile</h3>
+            <input type="text" name="username" placeholder={{user.username}}>
+            <input type="text" name="email_address" placeholder={{user.email_address}}>
+            <input type="submit" value="Submit">
+        </form>
     </div>
-    This is the edit profile page!
 </body>
 </html>

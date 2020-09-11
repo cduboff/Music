@@ -29,6 +29,18 @@ class UserManager(models.Manager):
         user = users[0]
         return bcrypt.checkpw(password.encode(), user.password.encode())
 
+    def edit(self, form):
+        errors = {}
+        if len(form['username']) < 5:
+            errors['username'] = "Username must be at least 5 charcters!"
+        user_check = self.filter(username=form['username'])
+        if user_check:
+            errors['username'] = "Username already in use!"
+        email_check = self.filter(email_address=form['email_address'])
+        if email_check:
+            errors['email_address'] = "Email already in use"
+        return errors
+
 class PostManager(models.Manager):
     def validator(self, form):
         errors = {}
