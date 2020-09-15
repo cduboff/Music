@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View User</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <style>
+            img{
+                width: 150px;
+            }
+        </style>
+</head>
+<body>
+    <div class="container bg-light">
+        <nav class="navbar navbar-expand border-bottom">
+            <div class="container">
+                <div class="col">
+                    <a class="navbar-brand" href="/home"><img src="..\static\music.gif" alt="Link to Home page"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="col-5"></div>
+                        <h2>{{user.first_name}} {{user.last_name}}</h2>
+                    </div>
+                    <div class="col"></div>
+                        <p><a href="/edit_prof/{{request.session.user_id}}" class="link">Edit Profile </a>|<a href="/logout"> Logout</a></p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container bg-light">
+            <p>Username: {{user.username}}</p>
+            <p>Bio: {{user.biography}}</p>
+            <p>Posts:</p>
+            <ul>
+                {% for post in user.posts.all reversed %}
+                <li>{{post.created_at}} {{post.content}} <a href="{{post.song_link}}">{{post.song_name}}</a></li>
+                {% endfor %}
+            </ul>
+            <p>Comments:</p>
+            <ul>
+                {% for comment in user.comment.all %}
+                <li>{{comment.created_at}} {{comment.content}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

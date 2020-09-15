@@ -9,23 +9,31 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="{% static 'style.css' %}"> -->
+    <style>
+        img{
+            width: 150px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="wrapper container">
-        <div class="container">
+    <div class="wrapper container bg-light">
+        <nav class="navbar navbar-expand border-bottom">
             <div class="container">
-                <div class="nav" id="nav">
-                    <div class="nav-item ">
-                        <img src="static\music.gif" alt="Link to Home page" class="align-self-center">
+                <div class="navbar">
+                    <a class="navbar-brand" href="/home"><img src="..\static\music.gif" alt="Link to Home page"></a>
+                </div>
+                <div class="navbar">
+                    <div class="col-5"></div>
+                        <h2>Welcome!</h2>
                     </div>
-                    <div class="nav-item">
-                        <a href="/edit_prof/{{request.session.user_id}}">Edit Profile</a> | <a href="/logout">Logout</a>
+                    <div class="navbar">
+                        <p>Please login or register to continue.</p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
+        </nav>
+        <div class="container bg-light">
             {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
@@ -34,7 +42,7 @@
                 </ul>
             {% endif %}
             <div class="row">
-                <div class="col p-4 bg-secondary m-1">
+                <div class="col p-4 m-1">
                     <form action="/reg" method="POST">
                         {% csrf_token %}
                         <h3>Register</h3>
@@ -56,20 +64,25 @@
                             <input type="password" class="form-control" placeholder="Confirm Password" required name="confirm_pw">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Email" required name=email_address>
+                            <input type="text" class="form-control" placeholder="Email" required name="email_address">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="bio"cols="30" rows="2" placeholder="Write a bit about yourself and your music tastes..."></textarea>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-auto">
                                 <label for="inputBirthday">Birthday</label>
+                            </div>
+                            <div class="form-group col-auto">
                                 <input type="date" class="form-control" id="inputBirthday" required name=birthday>
                             </div>
                             <div class="form-group col-auto">
-                                <button type="submit" class="btn btn-small">Submit</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="col p-4 bg-secondary m-1">
+                <div class="col p-4 m-1">
                     <form action="/login" method="POST">
                         {% csrf_token %}
                         <h3>Login</h3>
@@ -82,7 +95,7 @@
                             <input type="password" class="form-control" id="inputPassword4" required name=password>
                         </div>
                         <div class="form-group col-auto">
-                            <button type="submit" class="btn btn-small">Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>

@@ -1,92 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music</title>
-    {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <style>
-    *{
-        outline: 1px dotted red;
-    }
-    </style>
+        <style>
+            img{
+                    width: 150px;
+                }
+        </style>
 </head>
 <body>
-    <div class="wrapper container">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container">
-                    <div class="col">
-                        <a class="navbar-brand" href="/home"><img src="static\music.gif" alt="Link to Home page"></a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <div class="col-5"></div>
-                                    <h2>Welcome {{request.session.name}}!</h2>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <div class="col"></div>
-                                    <a href="/edit_prof/{{request.session.user_id}}" class="link">Edit Profile</a> | <a href="/logout">Logout</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags}}"{% endif %}>{{message}}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        <div class="row">
+    <div class="container bg-light">
+        <nav class="navbar navbar-expand">
             <div class="col">
-                <div class="form-row">
-                    <div class="form-group col auto">
-                        <form action="/sign" method="POST" id="post">
-                            {% csrf_token %}
-                            <p>Search for songs to share in your post!</p>
-                            <textarea name="q" placeholder="Search Spotify..." cols="30" rows="5"></textarea>
-                            <input type="submit" value="Search">
+                <a class="navbar-brand" href="/home"><img src="static\music.gif" alt="Link to Home page"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="col-5"></div>
+                    <h2>Welcome {{request.session.name}}!</h2>
+                </div>
+                <div class="col"></div>
+                    <p><a href="/edit_prof/{{request.session.user_id}}" class="link">Edit Profile </a>|<a href="/logout"> Logout</a></p>
+                </div>
+            </div>
+        </nav>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags}}" {% endif %}>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="container bg-light border-top">
+            <div class="row">
+                <div class="col-5 p-5 border-right">
+                    <div class="container">
+                        <form action="/sign" method="POST">
+                        {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-auto">
+                                    <input type="text" placeholder="Search Spotify..."class="form-control" name="q">
+                                </div>
+                                <div class="form-group col-auto">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
                         </form>
+                        <div class="row">
+                            <p>Copy and paste or click and drag search results to share!</p>
+                        </div>
                         <div class="row">
                             <ul>
                                 {% for name in request.session.result %}
                                 <li><a href="{{name.link}}">{{name.name}}</a></li>
                                 {% endfor %}
                             </ul>
-                            <!-- <p>{{spotify}}</p> -->
                         </div>
                     </div>
-                    
-                    <div class="form-group col auto">
-                        <form action="/search" method="POST" id="song">
-                            {% csrf_token %}
-                            <textarea
-                             placeholder="Create a post..." cols="30" rows="5" name="content"></textarea>
-                            <input type="submit" value="Post">
+                </div>
+                <div class="col-6 p-5">
+                    <div class="container">
+                        <form action="/search" method="POST">
+                        {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <textarea name="content" class="form-control" placeholder="Post content..." cols="30" rows="1"></textarea>
+                                </div>
+                                <div class="form-group col">
+                                    <input class="form-control" placeholder="Paste song link here to share" type="text" name="song_link">
+                                </div>
+                                <div class="form-group col">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
                         </form>
                         <div class="row">
-                            {% for post in posts %}
-                            <ul>
-                                <li>{{post.poster.first_name}} {{post.poster.last_name}} <br> {{post.content}}</li>
-                                {% if post.poster.id == request.session.user_id %}
-                                    <a href="/delete_post/{{post.id}}">Delete</a>
-                                {% endif %}
-                            </ul>
+                            {% for post in posts reversed %}
+                                <ul>
+                                    <li><a href='view_user/{{post.poster.id}}'>{{post.poster.username}}</a> @ {{post.created_at}} <br> {{post.content}} <br> Song link: <a href='{{post.song_link}}'>{{post.song_name}}</a> </li>
+                                    {% if request.session.user_id != post.poster.id %}
+                                        <form action="/comment/{{post.id}}" method="POST">
+                                        {% csrf_token %}
+                                        <p>{{post.likes.count}} people like this <a href="/like/{{post.id}}">Like</a></p>
+                                            <div class="form-row">
+                                                <div class="form-group col">
+                                                    <input type="text" class="form-control" name="comment" placeholder="Write a comment...">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <button type="submit" class="btn btn-primary">Comment</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    {% endif %}
+                                    {% for comment in post.comment.all %}
+                                    <ul>
+                                        <li><a href="view_user/{{comment.poster.id}}">{{comment.poster.username}}</a> @ {{comment.created_at}} <br> {{comment.content}}</li>
+                                        <p>{{comment.liked.count}} people like this <a href="/like_comment/{{comment.id}}">Like</a></p>
+                                        {% if comment.poster.id == request.session.user_id %}
+                                        <p><a href="/delete_comment/{{comment.id}}">Delete</a></p>
+                                        {% endif %}
+                                    </ul>
+                                    {% endfor %}
+                                    {% if post.poster.id == request.session.user_id %}
+                                    <p><a href="/delete_post/{{post.id}}">Delete</a></p>
+                                    {% endif %}
+                                </ul>
                             {% endfor %}
                         </div>
                     </div>
@@ -95,5 +116,4 @@
         </div>
     </div>
 </body>
-
 </html>
