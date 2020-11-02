@@ -120,9 +120,8 @@ def spotify(request):
     return redirect('/home')
 
 def view_user(request, id):
-    user = User.objects.get(id=id)
     context = {
-        'user': user
+        'user': User.objects.get(id=id)
     }
     return render(request, 'view.html', context)
 

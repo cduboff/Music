@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music</title>
+    <title>Find Your Beat</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <style>
@@ -18,13 +18,11 @@
             <div class="col">
                 <a class="navbar-brand" href="/home"><img src="static\music.gif" alt="Link to Home page"></a>
             </div>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="col-5"></div>
-                    <h2>Welcome {{request.session.name}}!</h2>
-                </div>
-                <div class="col"></div>
-                    <p><a href="/edit_prof/{{request.session.user_id}}" class="link">Edit Profile </a>|<a href="/logout"> Logout</a></p>
-                </div>
+            <div class="col">
+                <h3>Find Your Beat!</h3>
+            </div>
+            <div class="col">
+                <p>Welcome <a href="view_user/{{request.session.user_id}}">{{request.session.name}}</a>! | <a href="/edit_prof/{{request.session.user_id}}" class="link">Edit Profile </a>|<a href="/logout"> Logout</a></p>
             </div>
         </nav>
         {% if messages %}

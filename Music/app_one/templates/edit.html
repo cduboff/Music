@@ -14,21 +14,15 @@
 </head>
 <body>
     <div class="container bg-light">
-        <nav class="navbar navbar-expand border-bottom">
+        <nav class="navbar navbar-expand">
             <div class="col">
-                <a class="navbar-brand" href="/home"><img src="..\static\music.gif" alt="Link to Home page"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <a class="navbar-brand" href="/home"><img src="../static/music.gif" alt="Link to Home page"></a>
             </div>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="col-5"></div>
-                    <h2>Welcome {{request.session.name}}!</h2>
-                </div>
-                <div class="col"></div>
-                    <p><a href="/home" class="link">Home </a>|<a href="/logout"> Logout</a></p>
-                </div>
+            <div class="col">
+                <h3>Find Your Beat!</h3>
+            </div>
+            <div class="col">
+                <p>Welcome <a href="view_user/{{request.session.user_id}}">{{request.session.name}}</a>!|<a href="/logout"> Logout</a></p>
             </div>
         </nav>
         {% if messages %}
