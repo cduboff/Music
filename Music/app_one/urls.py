@@ -17,4 +17,5 @@ urlpatterns = [
     path('comment/<int:id>', views.post_comment),
     path('like_comment/<int:id>', views.comment_like),
     path('delete_comment/<int:id>', views.delete_comment),
+    path('ajax_calls/search/', views.autocompleteModel),
 ]

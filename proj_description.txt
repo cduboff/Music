@@ -6,7 +6,7 @@ Upon registration users should create a bio inlcuding favorite genres, and a few
 Features for MVP:
 - reg: name, username, email, password, bio
 - log: username, password
-- main page (posts and comments. posts can contain song recs.)
+- main page (posts and comments. posts should contain song recs.)
 - comments on posts and song recs
 - suggest songs in posts, or to specific users
 - spotify api integration (used to find songs, artists, and genres)

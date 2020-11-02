@@ -1,0 +1,20 @@
+Inching closer to hosting and sharing music on our site with spotify.
+
+What we have learned:
+ -  Direction; what do I want to do with this API? What do I want user experience to look like?
+
+-   Invalid client error when fetching song data; we are authenticated as "sp client", however when retrieving song data we are "invalid user"
+ Great resource that covers this bug: https://stackoverflow.com/questions/48693475/can-anyone-tell-me-why-im-still-getting-an-invalid-client-message-spotipy-on-m
+
+-   If we continue with OAUTH, redirect-uri's are a problem. Let's peruse further resources to get that figured out 
+    https://stackoverflow.com/questions/38198071/setting-localhost-as-a-spotify-redirect-uri
+
+If we can
+
+1) Be identified as valid client
+
+OR 
+
+2) Pass a valid redirect uri
+
+we are in business.
